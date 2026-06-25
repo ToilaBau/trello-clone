@@ -1,4 +1,3 @@
-import { ThemeButton } from '@/features/theme-button';
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 
 export const Route = createRootRoute({
@@ -7,10 +6,8 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <>
-      <div>Hello "__Root"!</div>
-      <ThemeButton />
+    <div className='w-full h-full'>
       <Outlet />
-    </>
+    </div>
   );
 }
