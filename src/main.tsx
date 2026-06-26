@@ -8,15 +8,17 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { queryClient } from './lib/queryClient';
 import { ThemeProvider } from './providers/theme-provider';
 import { TooltipProvider } from './components/ui/tooltip';
+import { Toaster } from 'sonner';
 
 const router = createRouter({ routeTree: routeTree });
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <RouterProvider router={router} />
+          <Toaster duration={5000} />
           <ReactQueryDevtools initialIsOpen={false} />
         </TooltipProvider>
       </QueryClientProvider>

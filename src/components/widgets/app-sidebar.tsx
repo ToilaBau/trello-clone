@@ -10,10 +10,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
-} from "@/components/ui/sidebar";
-import { sidebarNavLinks } from '@/config/navlink.config'
-import { Link } from "@tanstack/react-router";
-import { Kanban, Settings } from "lucide-react";
+} from '@/components/ui/sidebar';
+import { sidebarNavLinks } from '@/config/navlink.config';
+import { Link } from '@tanstack/react-router';
+import { Kanban, Settings } from 'lucide-react';
 
 export default function AppSidebar() {
   return (
@@ -24,7 +24,9 @@ export default function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton className="w-full h-full">
                 <Kanban className="stroke-3" />
-                <div className="font-bold text-lg">Trello <span className="text-accent">B</span></div>
+                <div className="font-bold text-lg">
+                  Tasker <span className="text-accent">B</span>
+                </div>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -37,9 +39,7 @@ export default function AppSidebar() {
                 return (
                   <SidebarMenuItem key={navlink.href}>
                     <SidebarMenuButton asChild>
-                      <Link
-                        to={navlink.href}
-                      >
+                      <Link to={navlink.href}>
                         <navlink.icon />
                         <span>{navlink.title}</span>
                       </Link>
@@ -55,7 +55,7 @@ export default function AppSidebar() {
       <SidebarFooter className="bg-gray-100">
         <SidebarMenuItem>
           <SidebarMenuButton asChild>
-            <Link to={"/setting"}>
+            <Link to={'/setting'}>
               <Settings className="size-6" />
               <span>Cài Đặt</span>
             </Link>

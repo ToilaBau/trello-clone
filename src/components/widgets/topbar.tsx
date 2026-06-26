@@ -1,7 +1,7 @@
-import { ThemeButton } from "@/features/theme-button";
-import { Button } from "../ui/button";
-import { Menu } from "lucide-react";
-import { useSidebar } from "../ui/sidebar";
+import { ThemeButton } from '@/features/theme-button';
+import { Button } from '../ui/button';
+import { Menu } from 'lucide-react';
+import { useSidebar } from '../ui/sidebar';
 
 export function Topbar() {
   const { toggleSidebar } = useSidebar();
@@ -10,12 +10,12 @@ export function Topbar() {
       <Button
         variant={'ghost'}
         className="cursor-pointer"
-        size={"icon"}
+        size={'icon'}
         onClick={toggleSidebar}
       >
         <Menu className="size-4 stroke-3" />
       </Button>
       <ThemeButton />
     </div>
-  )
+  );
 }

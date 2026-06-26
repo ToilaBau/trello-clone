@@ -1,8 +1,4 @@
-import {
-  FolderKanban,
-  Home,
-  type LucideIcon,
-} from "lucide-react";
+import { FolderKanban, Home, type LucideIcon } from 'lucide-react';
 
 export interface NavLink {
   href: string;
@@ -12,14 +8,13 @@ export interface NavLink {
 
 export const sidebarNavLinks: NavLink[] = [
   {
-    href: "/app",
+    href: '/app',
     icon: Home,
-    title: "Home",
+    title: 'Home',
   },
   {
-    href: "/app/board",
+    href: '/app/board',
     icon: FolderKanban,
-    title: "Board",
-  }
+    title: 'Board',
+  },
 ];
-
