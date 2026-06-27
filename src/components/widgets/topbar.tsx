@@ -2,6 +2,7 @@ import { ThemeButton } from '@/features/theme-button';
 import { Button } from '../ui/button';
 import { Menu } from 'lucide-react';
 import { useSidebar } from '../ui/sidebar';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatart';
 
 export function Topbar() {
   const { toggleSidebar } = useSidebar();
@@ -15,7 +16,16 @@ export function Topbar() {
       >
         <Menu className="size-4 stroke-3" />
       </Button>
-      <ThemeButton />
+      <div className="flex items-center gap-2">
+        <ThemeButton />
+        <Avatar>
+          <AvatarImage
+            src="https://cdn-icons-png.flaticon.com/512/3541/3541871.png"
+            alt="TaskerB"
+          />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </div>
     </div>
   );
 }
