@@ -21,7 +21,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['src/routes/**', 'src/components/ui/**'],
+    files: ['src/routes/**', 'src/components/ui/**', 'src/providers/**', ],
     rules: { 'react-refresh/only-export-components': 'off' },
   },
   eslintConfigPrettier,

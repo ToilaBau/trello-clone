@@ -52,10 +52,10 @@ export default function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarSeparator />
-      <SidebarFooter className="bg-gray-100">
+      <SidebarFooter>
         <SidebarMenuItem>
           <SidebarMenuButton asChild>
-            <Link to={'/setting'}>
+            <Link to={'/app/setting'}>
               <Settings className="size-6" />
               <span>Cài Đặt</span>
             </Link>

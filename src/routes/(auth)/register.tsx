@@ -19,12 +19,8 @@ export const Route = createFileRoute('/(auth)/register')({
 });
 
 const registerSchema = z.object({
-  name: z
-    .string()
-    .nonempty({ message: 'Name is not empty' }),
-  surname: z
-    .string()
-    .nonempty({ message: 'Surname is not empty' }),
+  name: z.string().nonempty({ message: 'Name is not empty' }),
+  surname: z.string().nonempty({ message: 'Surname is not empty' }),
   email: z
     .email({ message: 'Email invalid' })
     .nonempty({ message: ' Email not empty ' }),
@@ -36,22 +32,22 @@ type RegisterInput = z.infer<typeof registerSchema>;
 function Register() {
   const registerMutation = useMutation({
     mutationFn: async (payload: Omit<RegisterInput, 'confirmPassword'>) => {
-      return api.post<any, ApiSuccess<any>>('/users/register', payload);
+      return api.post<unknown, ApiSuccess<unknown>>('/users/register', payload);
     },
     onSuccess: (response) => {
       toast.success(response.message || 'Register Success', {
-        onAutoClose: () => redirect({ to: '/login' })
-      })
+        onAutoClose: () => redirect({ to: '/login' }),
+      });
       form.reset();
     },
     onError: (error) => {
       if (error instanceof ApiError) {
-        toast.error(error.message)
+        toast.error(error.message);
       } else {
-        toast.error('Network Error Or Unknown')
+        toast.error('Network Error Or Unknown');
       }
-    }
-  })
+    },
+  });
   const form = useForm({
     defaultValues: {
       name: '',
@@ -86,7 +82,7 @@ function Register() {
               form.handleSubmit();
             }}
             className="space-y-4"
-            id='register'
+            id="register"
           >
             <FieldGroup>
               <form.Field
@@ -199,10 +195,16 @@ function Register() {
                 Forgot password?
               </Link>
             </div>
-            <Button type='submit' id='register' disabled={isSubmitting} className="w-full py-5" variant={'accent'}>
+            <Button
+              type="submit"
+              id="register"
+              disabled={isSubmitting}
+              className="w-full py-5"
+              variant={'accent'}
+            >
               {isSubmitting ? (
-                <div className='flex'>
-                  <Loader2 className='animate-spin' />
+                <div className="flex">
+                  <Loader2 className="animate-spin" />
                   loading...
                 </div>
               ) : (

@@ -40,6 +40,14 @@ export const api = axios.create({
   },
 });
 
+export function verifyOtp(payload: { email: string; otp: string }) {
+  return api.post<unknown, ApiSuccess<unknown>>('/users/verify-otp', payload);
+}
+
+export function resendOtp(payload: { email: string }) {
+  return api.post<unknown, ApiSuccess<unknown>>('/users/resend-otp', payload);
+}
+
 export class ApiError extends Error {
   code?: string;
   status?: number;

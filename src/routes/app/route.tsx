@@ -1,9 +1,15 @@
 import { SidebarProvider } from '@/components/ui/sidebar';
 import AppSidebar from '@/components/widgets/app-sidebar';
 import { Topbar } from '@/components/widgets/topbar';
-import { Outlet, createFileRoute } from '@tanstack/react-router';
+import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
+import { getAccessToken } from '@/lib/auth';
 
 export const Route = createFileRoute('/app')({
+  beforeLoad: () => {
+    if (!getAccessToken()) {
+      throw redirect({ to: '/login' });
+    }
+  },
   component: RouteComponent,
 });
 

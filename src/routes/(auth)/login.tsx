@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import * as React from 'react';
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useForm } from '@tanstack/react-form';
 import z from 'zod';
 import {
@@ -9,8 +10,10 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { MoveRight } from 'lucide-react';
+import { Loader2, MoveRight } from 'lucide-react';
 import { toast } from 'sonner';
+import { useMutation } from '@tanstack/react-query';
+import { api, ApiError, type ApiSuccess } from '@/lib/api';
 
 export const Route = createFileRoute('/(auth)/login')({
   component: Login,
@@ -23,7 +26,35 @@ const loginSchema = z.object({
   password: z.string().nonempty({ message: 'Please enter your password' }),
 });
 
+type LoginInput = z.infer<typeof loginSchema>;
+
 function Login() {
+  const navigate = useNavigate();
+  const loginEmailRef = React.useRef('');
+
+  const loginMutation = useMutation({
+    mutationFn: async (payload: Omit<LoginInput, 'confirmPassword'>) => {
+      return api.post<unknown, ApiSuccess<unknown>>('/users/login', payload);
+    },
+    onSuccess: (response) => {
+      toast.success(
+        response.message ||
+          'Login success. Please enter OTP sent to your email.',
+      );
+      navigate({
+        to: `/otp?email=${encodeURIComponent(loginEmailRef.current)}`,
+      });
+      form.reset();
+    },
+    onError: (error) => {
+      if (error instanceof ApiError) {
+        toast.error(error.message);
+      } else {
+        toast.error('Network Error Or Unknown');
+      }
+    },
+  });
+
   const form = useForm({
     defaultValues: {
       email: '',
@@ -33,12 +64,13 @@ function Login() {
       onSubmit: loginSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
-      toast.success('Login Success', {
-        description: JSON.stringify(value),
-      });
+      loginEmailRef.current = value.email;
+      loginMutation.mutate(value);
     },
   });
+
+  const isSubmitting = loginMutation.isPending;
+
   return (
     <div className="w-full h-full flex justify-center items-center">
       <section className="w-full max-w-md">
@@ -121,8 +153,17 @@ function Login() {
               </Link>
             </div>
             <Button className="w-full py-5" variant={'accent'}>
-              <span>Sign In</span>
-              <MoveRight />
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="animate-spin" />
+                  <span>processing...</span>
+                </>
+              ) : (
+                <>
+                  <span>Sign In</span>
+                  <MoveRight />
+                </>
+              )}
             </Button>
           </form>
           <div className="h-px bg-primary/20"></div>
